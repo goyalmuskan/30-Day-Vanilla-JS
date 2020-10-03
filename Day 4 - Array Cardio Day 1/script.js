@@ -82,18 +82,22 @@ const people = ['Beck, Glenn', 'Becker, Carl', 'Beckett, Samuel', 'Beddoes, Mick
 
 // Array.prototype.filter()
 // 1. Filter the list of inventors for those who were born in the 1500's
+// We pass a function in filter which loops over every single item in an array.
 const taskOne = inventors.filter(inventor => inventor.year >= 1500 && inventor.year < 1600);
 console.table(taskOne);
 
 
 // Array.prototype.map()
 // 2. Give us an array of the inventors first and last names
+// Map takes an array and returns an array of the same length it was given after performing changes on it.
 const taskTwo = inventors.map(inventor => inventor.first + ' ' + inventor.last);
+// const taskTwo = inventors.map(inventor => `${inventor.first} ${inventor.last}`);
 console.log(taskTwo);
 
 
 // Array.prototype.sort()
 // 3. Sort the inventors by birthdate, oldest to youngest
+// Sort takes two items as input at a time
 // const taskThree = inventors.sort(function(a, b){
 //     if(a.year > b.year) {
 //         return 1;
@@ -107,9 +111,15 @@ console.table(taskThree);
 
 // Array.prototype.reduce()
 // 4. How many years did all the inventors live all together?
+// let total = 0;
+// for (let index = 0; index < inventors.length; index++) {
+//     total += inventors[index].passed - inventors[index].year;
+// }
+// reduce is a cleaner way of doing this
 const taskFour = inventors.reduce((total, inventor) => {
     return total + (inventor.passed - inventor.year);
 }, 0);
+// here first parameter gives the running total ie. what the function had returned previously.
 console.log(taskFour);
 
 
@@ -132,8 +142,8 @@ console.table(taskFive);
 // 7. sort Exercise
 // Sort the people alphabetically by last name
 const alpha = people.sort((lastOne, nextOne) => {
-    const [last, first] = lastOne.split(', ');
-    const [lastNext, firstNext] = nextOne.split(', ');
+    const [last, ] = lastOne.split(', ');
+    const [lastNext, ] = nextOne.split(', ');
     return last > lastNext ? 1 : -1;
 });
 console.log(alpha);
@@ -150,4 +160,5 @@ const transport = data.reduce(function (obj, item) {
     //console.log(item);
     return obj;
 }, {});
+// {} signifies an empty object initially since we don't know what all instances might be inside the array. If an instance is found for the first time, we make an entry for and then increment it and add it to the object.
 console.log(transport);
