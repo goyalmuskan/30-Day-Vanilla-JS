@@ -1,6 +1,8 @@
 const addItems = document.querySelector('.add-items');
 const itemsList = document.querySelector('.plates');
 const items = JSON.parse(localStorage.getItem('items')) || [];
+const check = document.querySelector('.checkAll');
+const UnCheck = document.querySelector('.UnCheckAll');
 
 function localTapas(event) {
     event.preventDefault(); // to prevent default refreshing when submit button is clicked
@@ -27,14 +29,32 @@ function populateList(plates = [], platesList) {
 }
 
 function toggledOn(event) {
-    if(!event.target.matches('input'))
+    if (!event.target.matches('input'))
         return; // so that other clicks are not considered
     const index = event.target.dataset.index;
     items[index].done = !items[index].done; // toggle it
-    localStorage.setItem('items', JSON.stringify(items));    
+    localStorage.setItem('items', JSON.stringify(items));
     populateList(items, itemsList);
+}
+
+function checkAll() {
+    items.forEach(item => {
+        item.done = true;
+        localStorage.setItem('items', JSON.stringify(items));
+        populateList(items, itemsList);
+    });
+}
+
+function UnCheckAll() {
+    items.forEach(item => {
+        item.done = false;
+        localStorage.setItem('items', JSON.stringify(items));
+        populateList(items, itemsList);
+    });
 }
 
 addItems.addEventListener('submit', localTapas);
 itemsList.addEventListener('click', toggledOn);
+check.addEventListener('click', checkAll);
+UnCheck.addEventListener('click', UnCheckAll);
 populateList(items, itemsList);
