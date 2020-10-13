@@ -3,6 +3,7 @@ const itemsList = document.querySelector('.plates');
 const items = JSON.parse(localStorage.getItem('items')) || [];
 const check = document.querySelector('.checkAll');
 const UnCheck = document.querySelector('.UnCheckAll');
+const clearList = document.querySelector('.clearList');
 
 function localTapas(event) {
     event.preventDefault(); // to prevent default refreshing when submit button is clicked
@@ -53,8 +54,15 @@ function UnCheckAll() {
     });
 }
 
+function clearEntireList() {
+    items.splice(0, items.length);
+    localStorage.setItem('items', JSON.stringify(items));
+    populateList(items, itemsList);
+}
+
 addItems.addEventListener('submit', localTapas);
 itemsList.addEventListener('click', toggledOn);
 check.addEventListener('click', checkAll);
 UnCheck.addEventListener('click', UnCheckAll);
+clearList.addEventListener('click', clearEntireList);
 populateList(items, itemsList);
